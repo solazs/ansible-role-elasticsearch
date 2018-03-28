@@ -5,6 +5,13 @@
 - include: setup-Debian.yml
   when: ansible_os_family == 'Debian'
 
+- name: Ensure log dir exists and is writeable
+  file:
+    path: "{{ elasticsearch_log_dir }}"
+    state: directory
+    owner: elasticsearch
+    mode: 755
+
 - name: Configure Elasticsearch.
   template:
     src: elasticsearch.yml.j2
